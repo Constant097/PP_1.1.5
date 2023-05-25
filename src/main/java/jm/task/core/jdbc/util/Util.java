@@ -25,7 +25,7 @@ public class Util {
         return connection;
     }
 
-    public static Session getConnectionHibernate() {
+    public static SessionFactory getConnectionHibernate() {
         Properties propertiesHibernate= new Properties();
         propertiesHibernate.setProperty("hibernate.driver_class","org.mysql.Driver");
         propertiesHibernate.setProperty("hibernate.connection.url",URL);
@@ -34,10 +34,11 @@ public class Util {
         propertiesHibernate.setProperty("show_sql","true");
         propertiesHibernate.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         propertiesHibernate.setProperty("hibernate.current_session_context_class", "thread");
+        propertiesHibernate.setProperty("hibernate.connection.autocommit","false");
         Configuration configuration = new Configuration().setProperties(propertiesHibernate).addAnnotatedClass(User.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
-        return session;
+
+        return sessionFactory;
     }
 
 
